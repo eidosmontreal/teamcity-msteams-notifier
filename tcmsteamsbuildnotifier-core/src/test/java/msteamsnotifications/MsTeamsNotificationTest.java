@@ -1,5 +1,6 @@
 package msteamsnotifications;
 
+import org.apache.commons.io.input.NullInputStream;
 import org.apache.http.ProtocolVersion;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -155,7 +156,7 @@ public class MsTeamsNotificationTest {
         BasicHttpResponse response = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("http", 1, 1), 400, ""));
 		BasicHttpEntity readOnce = new BasicHttpEntity();
 		// the nullInputStream gets closed when it is read and doesn't allow being read a second time. 
-		InputStream readOnceStream = InputStream.nullInputStream();
+		InputStream readOnceStream = new NullInputStream();
 		readOnce.setContent(readOnceStream);
         response.setEntity(readOnce);
 

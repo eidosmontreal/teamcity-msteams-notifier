@@ -93,7 +93,6 @@ public class MsTeamsNotificationMainSettingsTest {
         assertTrue(whms.getShowCommits());
         assertEquals(5, whms.getMaxCommitsToDisplay());
         assertNull(whms.getShowFailureReason());
-
     }
 
     private Element getFullConfigElement(){

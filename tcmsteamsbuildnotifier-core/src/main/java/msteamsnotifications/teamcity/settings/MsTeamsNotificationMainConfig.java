@@ -17,7 +17,7 @@ import java.io.IOException;
 
 public class MsTeamsNotificationMainConfig implements ChangeListener {
     public static final String DEFAULT_BOTNAME = "TeamCity";
-    public static final String DEFAULT_ICONURL = "https://raw.githubusercontent.com/spyder007/teamcity-msteams-notifier/master/docs/TeamCity72x72.png";
+    public static final String DEFAULT_ICONURL = "https://raw.githubusercontent.com/eidosmontreal/teamcity-msteams-notifier/master/docs/TeamCity72x72.png";
 	private static final String TOKEN = "token";
 	private static final String ICON_URL = "iconurl";
 	private static final String BOT_NAME = "botname";

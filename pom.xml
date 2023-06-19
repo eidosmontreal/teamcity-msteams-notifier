@@ -70,7 +70,7 @@
             <plugin>
                 <groupId>org.jetbrains.teamcity</groupId>
                 <artifactId>teamcity-sdk-maven-plugin</artifactId>
-                <version>0.2</version>
+                <version>0.4.1</version>
                 <configuration>
                     <teamcityDir>servers/${teamcity-version}</teamcityDir>
                     <pluginPackageName>${project.artifactId}-${project.version}.zip</pluginPackageName>

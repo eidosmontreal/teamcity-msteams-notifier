@@ -307,13 +307,13 @@
 				<c:when test="${ShowFurtherReading == 'ALL'}">
 				          <p>Further Reading:
 				          <ul>${moreInfoText}
-				          	<li><a href="https://github.com/spyder007/teamcity-msteams-notifier">Teamcity MSTeams Notifier plugin</a></li>
+				          	<li><a href="https://github.com/eidosmontreal/teamcity-msteams-notifier">Teamcity MSTeams Notifier plugin</a></li>
 				          </ul>	
 				</c:when>
 		
 				<c:when test="${ShowFurtherReading == 'DEFAULT'}">
 				          <p>Further Reading:
-				          <li><a href="https://github.com/spyder007/teamcity-msteams-notifier">Teamcity MSTeams Notifier plugin</a></li>
+				          <li><a href="https://github.com/eidosmontreal/teamcity-msteams-notifier">Teamcity MSTeams Notifier plugin</a></li>
 				          </ul>	
 				</c:when>
 		

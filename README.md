@@ -1,13 +1,5 @@
-## DEPRECATION NOTICE
-Professionally and personally, I have moved away from TeamCity as a build server for a variety of reasons.  That move means I have no real time to devote to developing this plugin.  Couple that with the fact that I am not a Java developer by trade, and it is painfully slow for me to get anything done in this project.
-
-Additionally, TeamCity has grown, and the way this is currently written does not work well.  If someone takes this over, it may be more useful to use the `Notificator` implementation in this plugin [MsTeamsNotificator.java](./src/main/java/msteamsnotifications/teamcity/MsTeamsNotificator.java) as the basis for a new plugin, and then extend the Notification Templates model by implementing a Template Processor.  There is far too much code in this plugin that mimics the trigger settings that exist, by default, on notifications today, and it's confusing within the UI.
-
-Feel free to fork this, but should someone want to take over this plugin, I will gladly transfer ownership to you.  Thanks!
-
 Teamcity MS Teams Build Notifier
 ====================
-![Build Status - Master](https://github.com/spyder007/teamcity-msteams-notifier/workflows/Publish%20Pipeline/badge.svg?branch=master)
 
 ## Overview
 
@@ -19,9 +11,17 @@ Posts Build Status to [MsTeams](http://teams.microsoft.com).  This plugin is bas
 _Tested on TeamCity 2019.1 (build 65998)_
 
 ## Installation
-Head over to the [releases](https://github.com/spyder007/teamcity-msteams-notifier/releases) section and get the zip labelled `tcMsTeamsNotifierPlugin.zip` from there (do not download the one on this page). Copy the zip file into your [TeamCity plugins directory](https://confluence.jetbrains.com/display/TCD9/Installing+Additional+Plugins).
 
-You will need to restart the TeamCity service before you can configure the plugin.
+Make sure you have local installations of:
+- JDK 8
+- Maven 3
+(See Development below for more information.)
+
+From the base of this repo, run the commands:
+- mvn package
+This will create a ZIP file in .\tcmsteamsbuildnotifier-webi-ui\target\
+Copy this ZIP file to the data directory of your TeamCity installation, under \plugins.
+You will need to restart the TeamCity service before it can load the plugin.
 
 ## Configuration
 
@@ -37,14 +37,44 @@ From the MsTeams tab on the Project or Build Configuration page, add a new MsTea
 
 ![Sample Build Configuration](https://raw.github.com/spyder007/teamcity-msteams-notifier/master/docs/build-msteams-config.png)
 
-## Contribution
+## Development
 
-In order to contribute to the project you first need to check out the project sources. This project uses the TeamCity Plugin SDK for development.
+### Required Software
 
-In order to test the plugin simply run the following command with java and mvn installed:
+1. Install JDK 8
+   Download JDK8 for Windows from https://adoptium.net/en-GB/temurin/releases/?version=8
+   Unless you are using another JDK on your machine, set the environment variable JAVA_HOME to the installation path:
+   JAVA_HOME=C:\Program Files\Eclipse Adoptium\jdk-8.0.372.7-hotspot\
+   and add the bin folder to your PATH:
+   PATH=%PATH%;%JAVA_HOME%\bin
 
-    mvn package tc-sdk:start
+2. Install Maven
+   If you have IntelliJ, you can use the bundled Maven.
+   Otherwise, install Maven 3 from https://maven.apache.org/download.cgi
+   Add the Maven bin folder to your PATH
 
-By default, it will install TeamCity in the version listed in the property in the root `pom.xml`. However, you can overwrite this setting by using the `-DteamcityVersion=10.0` switch.
+3. Install TeamCity
+   Download the TeamCity .exe version 2023.05 from https://www.jetbrains.com/teamcity/download
+   Install to the default location (C:\TeamCity).
+   Make sure env.TEAMCITY_JRE is set to the JAVA_HOME of your JDK 8 installation.
 
-Other available commands can be found [here](https://github.com/JetBrains/teamcity-sdk-maven-plugin).
+4. Configure IntelliJ (Optional)
+   Under File -> Project Structure, make sure to set SDK = JDK8 (add a new JDK with your installation path.)
+   Under File -> Settings -> Plugins, search for the Lombok plugin and install it.
+   Under File -> Build, Execution, Deployment -> Compiler -> Annotation Processors, enable annotation processing.
+
+### Building
+
+Issue 'mvn package' command from the root project to build the plugin.
+The resulting package <artifactId>.zip will be placed in 'target' directory.
+
+To test the plugin locally, run:
+- 'mvn tc-sdk:stop'
+- 'mvn tc-sdk:start'
+
+Browse to http://localhost:8111/
+- Accept the License agreement and configure the administrator account.
+- Go to the Administration page: http://localhost:8111/admin/admin.html?item=plugins
+- Under "External Plugins", the eidos-teamcity-plugin should be loaded.
+- Go to http://localhost:8111/admin/admin.html?item=msTeamsNotifications
+- Configure the webhook URL, etc.
